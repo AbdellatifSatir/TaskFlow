@@ -8,7 +8,7 @@ const PDFDocument = require('pdfkit');
 const { stringify } = require('csv-stringify/sync');
 
 const app = express();
-const PORT = 5000;
+// const PORT = 5000;
 
 // Middleware
 app.use(cors());
@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://abdosatiir_db_user:abdosatiir_db_user@todoapp.bgdon1e.mongodb.net/?appName=todoapp';
+// Already there, just verify:
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
 mongoose.connect(MONGODB_URI, {
@@ -483,6 +484,20 @@ app.get('/api/data', authenticateToken, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
+// Add CORS configuration for production
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true
+};
+app.use(cors(corsOptions));
+
+// Update port configuration
+const PORT = process.env.PORT || 5000;
+
+
 
 // Start server
 app.listen(PORT, () => {
