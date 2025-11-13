@@ -12,7 +12,8 @@ function AnalyticsDashboard() {
 
   const loadAnalytics = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/analytics');
+      // const response = await axios.get('http://localhost:5000/api/analytics');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/analytics`);
       setAnalytics(response.data);
     } catch (error) {
       console.error('Error loading analytics:', error);
@@ -23,7 +24,8 @@ function AnalyticsDashboard() {
 
   const exportCSV = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/export/csv', {
+      // const response = await axios.get('http://localhost:5000/api/export/csv', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/export/csv`, {
         responseType: 'blob'
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -40,7 +42,8 @@ function AnalyticsDashboard() {
 
   const exportPDF = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/export/pdf', {
+      // const response = await axios.get('http://localhost:5000/api/export/pdf', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/export/pdf`, {
         responseType: 'blob'
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
