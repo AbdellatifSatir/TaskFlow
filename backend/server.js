@@ -492,8 +492,6 @@ app.get('/api/data', authenticateToken, async (req, res) => {
 // };
 // app.use(cors(corsOptions));
 
-import cors from "cors";
-
 app.use(cors({
   origin: "*",
   credentials: true
