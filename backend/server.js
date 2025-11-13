@@ -494,10 +494,18 @@ app.get('/api/data', authenticateToken, async (req, res) => {
 // };
 // app.use(cors(corsOptions));
 
-app.use(cors({
-  origin: "*",
+// app.use(cors({
+//   origin: "*",
+//   credentials: true
+// }));
+
+const corsOptions = {
+  origin: process.env.FRONTEND_URL,
   credentials: true
-}));
+};
+app.use(cors(corsOptions));
+
+
 
 // Update port configuration
 const PORT = process.env.PORT || 5000;
