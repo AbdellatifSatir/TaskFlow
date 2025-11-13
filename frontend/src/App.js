@@ -10,7 +10,9 @@ import { Plus, Search, Trash2, Edit2, Check, X, Calendar, Target, Tag, CheckCirc
 import './index.css';
 
 // const API_URL = 'http://localhost:5000/api';
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = `${process.env.REACT_APP_API_URL}/api` || 'http://localhost:5000/api';
+
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
