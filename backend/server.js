@@ -512,8 +512,15 @@ const PORT = process.env.PORT || 5000;
 
 
 
+// // Start server
+// app.listen(PORT, () => {
+//   console.log(`✅ Enhanced backend server running on http://localhost:${PORT}`);
+//   console.log(`📊 MongoDB: ${MONGODB_URI}`);
+//   console.log(`🔐 JWT authentication enabled`);
+// });
+
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`✅ Enhanced backend server running on http://localhost:${PORT}`);
   console.log(`📊 MongoDB: ${MONGODB_URI}`);
   console.log(`🔐 JWT authentication enabled`);
