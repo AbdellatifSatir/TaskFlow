@@ -67,6 +67,7 @@ function Dashboard() {
   const loadData = async () => {
     try {
       const response = await axios.get(`${API_URL}/data`);
+      console.log(`${API_URL}/data`)
       setTasks(response.data.tasks || []);
       setCategories(response.data.categories || []);
       setNextGoals(response.data.nextGoals || []);
