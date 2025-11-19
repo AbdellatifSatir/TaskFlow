@@ -265,8 +265,8 @@ function Dashboard() {
       month: 'short', 
       day: 'numeric', 
       year: 'numeric' 
-    });
-};
+    })};
+
     
     return `${formatDate(startDate)} to ${formatDate(endDate)}`;
   };
