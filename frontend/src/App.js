@@ -562,7 +562,7 @@ function TasksView({
           </div>
 
           {/* Categories */}
-          <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
+          {/* <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Tag className="w-5 h-5 text-white" />
@@ -587,7 +587,8 @@ function TasksView({
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
+          
         </div>
       </div>
     </>
