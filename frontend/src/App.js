@@ -461,24 +461,13 @@ function TasksView({
 }) {
   return (
     <>
-      {/* Action Bar */}
+      {/* Action Bar - Simplified */}
       <div className="mb-8 bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
-        <div className="flex flex-wrap gap-4">
-          <div className="flex-1 min-w-[200px] relative group">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search tasks..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-indigo-300 transition-all"
-            />
-          </div>
-
+        <div className="flex flex-wrap gap-4 items-center justify-between">
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-6 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-indigo-300 cursor-pointer font-medium text-gray-700"
+            className="flex-1 min-w-[200px] px-6 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-indigo-300 cursor-pointer font-medium text-gray-700"
           >
             <option value="All">All Categories</option>
             {categories.map(cat => (
@@ -486,21 +475,23 @@ function TasksView({
             ))}
           </select>
 
-          <button
-            onClick={() => setShowAddTask(true)}
-            className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center gap-2 font-semibold shadow-lg"
-          >
-            <Plus className="w-5 h-5" />
-            Add Task
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowAddTask(true)}
+              className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center gap-2 font-semibold shadow-lg"
+            >
+              <Plus className="w-5 h-5" />
+              Add Task
+            </button>
 
-          <button
-            onClick={() => setShowAddCategory(true)}
-            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl hover:from-pink-600 hover:to-rose-700 transition-all flex items-center gap-2 font-semibold shadow-lg"
-          >
-            <Tag className="w-5 h-5" />
-            Category
-          </button>
+            <button
+              onClick={() => setShowAddCategory(true)}
+              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl hover:from-pink-600 hover:to-rose-700 transition-all flex items-center gap-2 font-semibold shadow-lg"
+            >
+              <Tag className="w-5 h-5" />
+              Category
+            </button>
+          </div>
         </div>
       </div>
 
