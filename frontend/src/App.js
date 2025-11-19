@@ -37,7 +37,6 @@ function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [categories, setCategories] = useState([]);
   const [nextGoals, setNextGoals] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [showAddTask, setShowAddTask] = useState(false);
   const [showAddGoal, setShowAddGoal] = useState(false);
@@ -211,10 +210,8 @@ function Dashboard() {
   };
 
   const filteredTasks = tasks.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         (task.description && task.description.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return matchesCategory;
   });
 
   const groupTasksByWeek = () => {
@@ -251,13 +248,6 @@ function Dashboard() {
     const endDate = dates[dates.length - 1];
     
     // Format dates
-    // const formatDate = (date) => {
-    //   const day = date.getDate().toString().padStart(2, '0');
-    //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    //   const year = date.getFullYear();
-    //   return `${day}/${month}/${year}`;
-    // };
-
     const formatDate = (date) => {
       return date.toLocaleDateString('en-US', { 
         month: 'short', 
@@ -348,8 +338,6 @@ function Dashboard() {
             tasks={tasks}
             categories={categories}
             nextGoals={nextGoals}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
             groupedTasks={groupedTasks}
@@ -453,7 +441,7 @@ function TabButton({ active, onClick, children }) {
 
 // Tasks View Component
 function TasksView({
-  tasks, categories, nextGoals, searchQuery, setSearchQuery,
+  tasks, categories, nextGoals,
   selectedCategory, setSelectedCategory, groupedTasks, getWeekDateRange, updateTask,
   deleteTask, updateGoal, deleteGoal, deleteCategory,
   setShowAddTask, setShowAddGoal, setShowAddCategory,
@@ -461,13 +449,13 @@ function TasksView({
 }) {
   return (
     <>
-      {/* Action Bar - Simplified */}
+      {/* Action Bar - Simplified & Responsive */}
       <div className="mb-8 bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
-        <div className="flex flex-wrap gap-4 items-center justify-between">
+        <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center sm:justify-between">
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="flex-1 min-w-[200px] px-6 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-indigo-300 cursor-pointer font-medium text-gray-700"
+            className="flex-1 sm:min-w-[200px] px-6 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-indigo-300 cursor-pointer font-medium text-gray-700"
           >
             <option value="All">All Categories</option>
             {categories.map(cat => (
@@ -478,18 +466,20 @@ function TasksView({
           <div className="flex gap-3">
             <button
               onClick={() => setShowAddTask(true)}
-              className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center gap-2 font-semibold shadow-lg"
+              className="flex-1 sm:flex-initial px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center justify-center gap-2 font-semibold shadow-lg"
             >
               <Plus className="w-5 h-5" />
-              Add Task
+              <span className="hidden sm:inline">Add Task</span>
+              <span className="sm:hidden">Task</span>
             </button>
 
             <button
               onClick={() => setShowAddCategory(true)}
-              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl hover:from-pink-600 hover:to-rose-700 transition-all flex items-center gap-2 font-semibold shadow-lg"
+              className="flex-1 sm:flex-initial px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl hover:from-pink-600 hover:to-rose-700 transition-all flex items-center justify-center gap-2 font-semibold shadow-lg"
             >
               <Tag className="w-5 h-5" />
-              Category
+              <span className="hidden sm:inline">Category</span>
+              <span className="sm:hidden">Cat</span>
             </button>
           </div>
         </div>
@@ -603,7 +593,7 @@ function TasksView({
           </div>
 
           {/* Categories */}
-          {/* <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
+          <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Tag className="w-5 h-5 text-white" />
@@ -621,6 +611,7 @@ function TasksView({
                     <button
                       onClick={() => deleteCategory(cat._id)}
                       className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 transition-all"
+                      // className="text-red-500 hover:text-red-700 transition-all"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -628,7 +619,7 @@ function TasksView({
                 </div>
               ))}
             </div>
-          </div> */}
+          </div>
           
         </div>
       </div>
