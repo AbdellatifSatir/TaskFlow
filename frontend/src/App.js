@@ -591,7 +591,7 @@ function TasksView({
                     <span className="text-sm text-gray-700">{cat.name}</span>
                     <span className="text-xs text-gray-400">({tasks.filter(t => t.category === cat.name).length})</span>
                   </div>
-                  {!['Self', 'Job', 'PhD'].includes(cat.name) && (
+                  {/* {!['Self', 'Job', 'PhD'].includes(cat.name) && (
                     <button
                       onClick={() => {
                         if (window.confirm(`Delete "${cat.name}"?`)) {
@@ -602,7 +602,19 @@ function TasksView({
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
-                  )}
+                  )} */}
+
+                    <button
+                      onClick={() => {
+                        if (window.confirm(`Delete "${cat.name}"?`)) {
+                          deleteCategory(cat._id);
+                        }
+                      }}
+                      className="opacity-0 group-hover:opacity-100 text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+
                 </div>
               ))}
             </div>
