@@ -251,11 +251,19 @@ function Dashboard() {
     const endDate = dates[dates.length - 1];
     
     // Format dates
+    // const formatDate = (date) => {
+    //   const day = date.getDate().toString().padStart(2, '0');
+    //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    //   const year = date.getFullYear();
+    //   return `${day}/${month}/${year}`;
+    // };
+
     const formatDate = (date) => {
-      const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
+      return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
     };
 
     return `${formatDate(startDate)} to ${formatDate(endDate)}`;
