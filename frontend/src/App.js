@@ -234,7 +234,6 @@ function Dashboard() {
     return grouped;
   };
 
-
   // ADD THIS NEW FUNCTION HERE:
   const getWeekDateRange = (tasks) => {
     if (!tasks || tasks.length === 0) return '';
@@ -251,23 +250,14 @@ function Dashboard() {
     const startDate = dates[0];
     const endDate = dates[dates.length - 1];
     
-    // // Format dates
-    // const formatDate = (date) => {
-    //   const day = date.getDate().toString().padStart(2, '0');
-    //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    //   const year = date.getFullYear();
-    //   return `${day}/${month}/${year}`;
-    // };
-
-    // OR ALTERNATIVE FORMAT
+    // Format dates
     const formatDate = (date) => {
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
-    })};
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    };
 
-    
     return `${formatDate(startDate)} to ${formatDate(endDate)}`;
   };
 
@@ -355,6 +345,7 @@ function Dashboard() {
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
             groupedTasks={groupedTasks}
+            getWeekDateRange={getWeekDateRange} 
             updateTask={updateTask}
             deleteTask={deleteTask}
             updateGoal={updateGoal}
@@ -455,7 +446,7 @@ function TabButton({ active, onClick, children }) {
 // Tasks View Component
 function TasksView({
   tasks, categories, nextGoals, searchQuery, setSearchQuery,
-  selectedCategory, setSelectedCategory, groupedTasks, updateTask,
+  selectedCategory, setSelectedCategory, groupedTasks, getWeekDateRange, updateTask,
   deleteTask, updateGoal, deleteGoal, deleteCategory,
   setShowAddTask, setShowAddGoal, setShowAddCategory,
   setEditingTask, setEditingGoal, setTaskForm, setGoalForm
@@ -537,8 +528,7 @@ function TasksView({
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-gray-800">Week {week}</h2>
-                    <p className="text-sm text-gray-500">
-                      {getWeekDateRange(weekTasks)} • {weekTasks.length} tasks
+                    <p className="text-sm text-gray-500"> {getWeekDateRange(weekTasks)} • {weekTasks.length} tasks
                     </p>
                   </div>
                 </div>
