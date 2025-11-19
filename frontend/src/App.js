@@ -269,69 +269,68 @@ function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      {/* Header with Navigation */}
-      <header className="bg-white/80 backdrop-blur-lg shadow-sm border-b border-indigo-100 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
+    // <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-gray-50">
+
+      {/* Simplified Header */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <Sparkles className="w-6 h-6 text-white" />
+              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  TaskFlow
-                </h1>
-                <p className="text-sm text-gray-600">Welcome, {user?.username}!</p>
-              </div>
+              <h1 className="text-xl font-semibold text-gray-900">TaskFlow</h1>
             </div>
             
-            {/* Stats & User Menu */}
-            <div className="hidden md:flex gap-4 items-center">
-              <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl px-6 py-3 text-white shadow-lg">
-                <div className="text-2xl font-bold">{totalCount}</div>
-                <div className="text-xs opacity-90">Total Tasks</div>
+            {/* Stats - Desktop Only */}
+            <div className="hidden md:flex items-center gap-4">
+              <div className="text-center px-4 py-1 bg-gray-50 rounded-lg">
+                <div className="text-lg font-semibold text-gray-900">{totalCount}</div>
+                <div className="text-xs text-gray-500">Tasks</div>
               </div>
-              <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl px-6 py-3 text-white shadow-lg">
-                <div className="text-2xl font-bold">{completedCount}</div>
-                <div className="text-xs opacity-90">Completed</div>
+              <div className="text-center px-4 py-1 bg-gray-50 rounded-lg">
+                <div className="text-lg font-semibold text-green-600">{completedCount}</div>
+                <div className="text-xs text-gray-500">Done</div>
               </div>
-              <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl px-6 py-3 text-white shadow-lg">
-                <div className="text-2xl font-bold">{nextGoals.length}</div>
-                <div className="text-xs opacity-90">Goals</div>
+              <div className="text-center px-4 py-1 bg-gray-50 rounded-lg">
+                <div className="text-lg font-semibold text-indigo-600">{nextGoals.length}</div>
+                <div className="text-xs text-gray-500">Goals</div>
               </div>
               
-              <div className="flex items-center gap-2 ml-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center text-white shadow-lg">
-                  <User className="w-5 h-5" />
-                </div>
+              {/* User Menu */}
+              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-gray-200">
+                <span className="text-sm text-gray-700">{user?.username}</span>
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl hover:from-red-600 hover:to-rose-700 transition-all font-semibold shadow-lg flex items-center gap-2"
+                  className="px-3 py-1.5 text-sm text-gray-700 hover:text-red-600 transition-colors"
                 >
                   <LogOut className="w-4 h-4" />
-                  Logout
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Navigation Tabs */}
-          <div className="mt-6 flex gap-2 border-b border-gray-200">
+          {/* Tabs */}
+          <div className="flex gap-1 border-t border-gray-200">
             <TabButton active={activeTab === 'tasks'} onClick={() => setActiveTab('tasks')}>
-              📋 Tasks
+              <Calendar className="w-4 h-4" />
+              Tasks
             </TabButton>
             <TabButton active={activeTab === 'calendar'} onClick={() => setActiveTab('calendar')}>
-              📅 Calendar
+              <Calendar className="w-4 h-4" />
+              Calendar
             </TabButton>
             <TabButton active={activeTab === 'analytics'} onClick={() => setActiveTab('analytics')}>
-              📊 Analytics
+              <Target className="w-4 h-4" />
+              Analytics
             </TabButton>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"> */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-gray-50 min-h-screen">
         {/* Render Active Tab Content */}
         {activeTab === 'tasks' && (
           <TasksView
@@ -423,15 +422,16 @@ function Dashboard() {
   );
 }
 
-// Tab Button Component
+
+// Tab Button Component - SIMPLIFIED
 function TabButton({ active, onClick, children }) {
   return (
     <button
       onClick={onClick}
-      className={`px-6 py-3 font-semibold rounded-t-xl transition-all ${
+      className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
         active
-          ? 'bg-white text-indigo-600 shadow-sm'
-          : 'text-gray-600 hover:text-indigo-600 hover:bg-white/50'
+          ? 'border-indigo-600 text-indigo-600'
+          : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
       }`}
     >
       {children}
@@ -439,90 +439,79 @@ function TabButton({ active, onClick, children }) {
   );
 }
 
-// Tasks View Component
+
+// Tasks View Component - SIMPLIFIED & PROFESSIONAL
 function TasksView({
   tasks, categories, nextGoals,
-  selectedCategory, setSelectedCategory, groupedTasks, getWeekDateRange, updateTask,
+  selectedCategory, setSelectedCategory, groupedTasks, updateTask,
   deleteTask, updateGoal, deleteGoal, deleteCategory,
   setShowAddTask, setShowAddGoal, setShowAddCategory,
   setEditingTask, setEditingGoal, setTaskForm, setGoalForm
 }) {
   return (
     <>
-      {/* Action Bar - Simplified & Responsive */}
-      <div className="mb-8 bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
-        <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center sm:justify-between">
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="flex-1 sm:min-w-[200px] px-6 py-3 bg-gray-50 border-2 border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-indigo-300 cursor-pointer font-medium text-gray-700"
+      {/* Simplified Action Bar */}
+      <div className="mb-6 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm font-medium text-gray-700"
+        >
+          <option value="All">All Categories</option>
+          {categories.map(cat => (
+            <option key={cat._id} value={cat.name}>{cat.name}</option>
+          ))}
+        </select>
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowAddTask(true)}
+            className="flex-1 sm:flex-initial px-4 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 text-sm font-medium"
           >
-            <option value="All">All Categories</option>
-            {categories.map(cat => (
-              <option key={cat._id} value={cat.name}>{cat.name}</option>
-            ))}
-          </select>
-
-          <div className="flex gap-3">
-            <button
-              onClick={() => setShowAddTask(true)}
-              className="flex-1 sm:flex-initial px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center justify-center gap-2 font-semibold shadow-lg"
-            >
-              <Plus className="w-5 h-5" />
-              <span className="hidden sm:inline">Add Task</span>
-              <span className="sm:hidden">Task</span>
-            </button>
-
-            <button
-              onClick={() => setShowAddCategory(true)}
-              className="flex-1 sm:flex-initial px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl hover:from-pink-600 hover:to-rose-700 transition-all flex items-center justify-center gap-2 font-semibold shadow-lg"
-            >
-              <Tag className="w-5 h-5" />
-              <span className="hidden sm:inline">Category</span>
-              <span className="sm:hidden">Cat</span>
-            </button>
-          </div>
+            <Plus className="w-4 h-4" />
+            New Task
+          </button>
+          <button
+            onClick={() => setShowAddCategory(true)}
+            className="px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm font-medium"
+          >
+            <Tag className="w-4 h-4" />
+            Category
+          </button>
+          <button
+            onClick={() => setShowAddGoal(true)}
+            className="px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm font-medium"
+          >
+            <Target className="w-4 h-4" />
+            Goal
+          </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Tasks */}
-        <div className="lg:col-span-2 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Main Tasks - 3 columns */}
+        <div className="lg:col-span-3 space-y-4">
           {Object.keys(groupedTasks).length === 0 ? (
-            <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-12 text-center border border-indigo-100">
-              <div className="w-24 h-24 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-12 h-12 text-indigo-500" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">No tasks found</h3>
-              <p className="text-gray-500">Start by adding your first task!</p>
+            <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+              <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-700 mb-2">No tasks found</h3>
+              <p className="text-gray-500 text-sm">Create your first task to get started</p>
             </div>
           ) : (
-            // Object.entries(groupedTasks).sort(([a], [b]) => a - b).map(([week, weekTasks]) => (
-              Object.entries(groupedTasks).sort(([a], [b]) => b - a).map(([week, weekTasks]) => (
-              <div key={week} className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
-                
-                {/* <div className="flex items-center gap-3 mb-6 pb-4 border-b-2">
-                  <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
-                    {week}
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-800">Week {week}</h2>
-                    <p className="text-sm text-gray-500">{weekTasks.length} tasks</p>
-                  </div>
-                </div> */}
-
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2">
-                  <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
-                    {week}
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-800">Week {week}</h2>
-                    <p className="text-sm text-gray-500"> {getWeekDateRange(weekTasks)} • {weekTasks.length} tasks
-                    </p>
+            Object.entries(groupedTasks).sort(([a], [b]) => b - a).map(([week, weekTasks]) => (
+              <div key={week} className="bg-white rounded-lg border border-gray-200">
+                <div className="px-5 py-4 border-b border-gray-200 bg-gray-50">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-semibold text-sm">
+                      {week}
+                    </div>
+                    <div>
+                      <h2 className="text-base font-semibold text-gray-900">Week {week}</h2>
+                      <p className="text-xs text-gray-500">{getWeekDateRange(weekTasks)} • {weekTasks.length} tasks</p>
+                    </div>
                   </div>
                 </div>
-
-                <div className="space-y-3">
+                <div className="p-4 space-y-2">
                   {weekTasks.map(task => (
                     <TaskCard
                       key={task._id}
@@ -540,7 +529,11 @@ function TasksView({
                         });
                         setShowAddTask(true);
                       }}
-                      onDelete={() => deleteTask(task._id)}
+                      onDelete={() => {
+                        if (window.confirm('Delete this task?')) {
+                          deleteTask(task._id);
+                        }
+                      }}
                     />
                   ))}
                 </div>
@@ -549,29 +542,18 @@ function TasksView({
           )}
         </div>
 
-        {/* Sidebar */}
+        {/* Sidebar - 1 column */}
         <div className="space-y-6">
-          {/* Next Goals */}
-          <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-purple-100">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <Target className="w-5 h-5 text-white" />
-                </div>
-                <h2 className="text-xl font-bold text-gray-800">Next Goals</h2>
-              </div>
-              <button
-                onClick={() => setShowAddGoal(true)}
-                className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white hover:shadow-lg transition-all"
-              >
-                <Plus className="w-5 h-5" />
-              </button>
+          {/* Goals */}
+          <div className="bg-white rounded-lg border border-gray-200">
+            <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+              <h2 className="text-sm font-semibold text-gray-900">Goals</h2>
             </div>
-            <div className="space-y-3">
+            <div className="p-4 space-y-2">
               {nextGoals.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-4">No goals yet</p>
+                <p className="text-gray-500 text-xs text-center py-2">No goals yet</p>
               ) : (
-                nextGoals.map(goal => (
+                nextGoals.slice(0, 5).map(goal => (
                   <GoalCard
                     key={goal._id}
                     goal={goal}
@@ -585,7 +567,11 @@ function TasksView({
                       });
                       setShowAddGoal(true);
                     }}
-                    onDelete={() => deleteGoal(goal._id)}
+                    onDelete={() => {
+                      if (window.confirm('Delete this goal?')) {
+                        deleteGoal(goal._id);
+                      }
+                    }}
                   />
                 ))
               )}
@@ -593,92 +579,93 @@ function TasksView({
           </div>
 
           {/* Categories */}
-          <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Tag className="w-5 h-5 text-white" />
-              </div>
-              <h2 className="text-xl font-bold text-gray-800">Categories</h2>
+          <div className="bg-white rounded-lg border border-gray-200">
+            <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+              <h2 className="text-sm font-semibold text-gray-900">Categories</h2>
             </div>
-            <div className="space-y-2">
+            <div className="p-4 space-y-1">
               {categories.map(cat => (
-                <div key={cat._id} className="group flex items-center justify-between p-3 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 rounded-xl transition-all">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"></div>
-                    <span className="font-medium text-gray-700">{cat.name}</span>
+                <div key={cat._id} className="group flex items-center justify-between py-2 px-2 hover:bg-gray-50 rounded">
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-indigo-600 rounded-full"></div>
+                    <span className="text-sm text-gray-700">{cat.name}</span>
+                    <span className="text-xs text-gray-400">({tasks.filter(t => t.category === cat.name).length})</span>
                   </div>
-                  {['Self', 'Job', 'PhD'].includes(cat.name) && (
+                  {!['Self', 'Job', 'PhD'].includes(cat.name) && (
                     <button
-                      onClick={() => deleteCategory(cat._id)}
-                      className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 transition-all"
-                      // className="text-red-500 hover:text-red-700 transition-all"
+                      onClick={() => {
+                        if (window.confirm(`Delete "${cat.name}"?`)) {
+                          deleteCategory(cat._id);
+                        }
+                      }}
+                      className="opacity-0 group-hover:opacity-100 text-red-600 hover:text-red-700"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   )}
                 </div>
               ))}
             </div>
           </div>
-          
         </div>
       </div>
     </>
   );
 }
 
-// Task Card Component
+
+
+
+// Task Card Component - SIMPLIFIED & CLEAN
 function TaskCard({ task, onToggle, onEdit, onDelete }) {
   const priorityColors = {
-    high: 'from-red-500 to-rose-600',
-    medium: 'from-yellow-500 to-amber-600',
-    low: 'from-green-500 to-emerald-600'
+    high: 'bg-red-100 text-red-700 border-red-200',
+    medium: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+    low: 'bg-green-100 text-green-700 border-green-200'
   };
 
-  const categoryColors = {
-    'Self': 'from-blue-400 to-cyan-500',
-    'Job': 'from-green-400 to-emerald-500',
-    'PhD': 'from-purple-400 to-pink-500',
-    'default': 'from-gray-400 to-gray-500'
+  const priorityLabels = {
+    high: 'High',
+    medium: 'Med',
+    low: 'Low'
   };
-
-  const priorityGradient = priorityColors[task.priority] || priorityColors.medium;
-  const categoryGradient = categoryColors[task.category] || categoryColors.default;
 
   return (
-    <div className={`group p-4 rounded-xl border-2 transition-all ${
+    <div className={`group p-3 rounded-lg border transition-all ${
       task.completed 
         ? 'bg-gray-50 border-gray-200' 
-        : 'bg-white border-indigo-100 hover:border-indigo-300 hover:shadow-lg'
+        : 'bg-white border-gray-200 hover:border-indigo-300 hover:shadow-sm'
     }`}>
       <div className="flex items-start gap-3">
         <button
           onClick={onToggle}
-          className={`mt-1 flex-shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
+          className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
             task.completed 
-              ? 'bg-gradient-to-br from-green-500 to-emerald-600 border-green-500' 
+              ? 'bg-indigo-600 border-indigo-600' 
               : 'border-gray-300 hover:border-indigo-400'
           }`}
         >
-          {task.completed ? <Check className="w-4 h-4 text-white" /> : <Circle className="w-3 h-3 text-gray-300" />}
+          {task.completed && <Check className="w-3 h-3 text-white" />}
         </button>
         
         <div className="flex-1 min-w-0">
-          <div className="flex items-start gap-2">
-            <h3 className={`font-semibold text-lg flex-1 ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
+          <div className="flex items-start justify-between gap-2 mb-1">
+            <h3 className={`font-medium text-sm flex-1 ${task.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
               {task.title}
             </h3>
-            <div className={`px-2 py-1 rounded-lg text-xs font-bold text-white bg-gradient-to-r ${priorityGradient}`}>
-              {task.priority?.toUpperCase() || 'MEDIUM'}
-            </div>
+            <span className={`px-2 py-0.5 rounded text-xs font-medium border ${priorityColors[task.priority] || priorityColors.medium}`}>
+              {priorityLabels[task.priority] || 'Med'}
+            </span>
           </div>
+          
           {task.description && (
-            <p className={`text-sm mt-1 ${task.completed ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className={`text-xs mt-1 ${task.completed ? 'text-gray-400' : 'text-gray-600'}`}>
               {task.description}
             </p>
           )}
-          <div className="flex items-center flex-wrap gap-2 mt-3">
-            <span className={`inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold text-white bg-gradient-to-r ${categoryGradient}`}>
+          
+          <div className="flex items-center flex-wrap gap-2 mt-2">
+            <span className="inline-flex items-center px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs font-medium">
               {task.category}
             </span>
             <span className="flex items-center gap-1 text-xs text-gray-500">
@@ -686,9 +673,9 @@ function TaskCard({ task, onToggle, onEdit, onDelete }) {
               {task.date ? new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'No date'}
             </span>
             {task.tags && task.tags.length > 0 && (
-              <div className="flex gap-1 flex-wrap">
+              <div className="flex gap-1">
                 {task.tags.map((tag, idx) => (
-                  <span key={idx} className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs">
+                  <span key={idx} className="px-1.5 py-0.5 bg-indigo-50 text-indigo-600 rounded text-xs">
                     #{tag}
                   </span>
                 ))}
@@ -697,69 +684,16 @@ function TaskCard({ task, onToggle, onEdit, onDelete }) {
           </div>
         </div>
         
-        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button 
-            onClick={onEdit} 
-            className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
-          >
-            <Edit2 className="w-4 h-4" />
-          </button>
-          <button 
-            onClick={onDelete} 
-            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-all"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Goal Card Component
-function GoalCard({ goal, onToggle, onEdit, onDelete }) {
-  return (
-    <div className={`group p-4 rounded-xl border-2 transition-all ${
-      goal.completed 
-        ? 'bg-purple-50 border-purple-200' 
-        : 'bg-white border-purple-100 hover:border-purple-300 hover:shadow-md'
-    }`}>
-      <div className="flex items-start gap-3">
-        <button
-          onClick={onToggle}
-          className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-lg border-2 flex items-center justify-center transition-all ${
-            goal.completed 
-              ? 'bg-gradient-to-br from-purple-500 to-pink-600 border-purple-500' 
-              : 'border-purple-300 hover:border-purple-400'
-          }`}
-        >
-          {goal.completed && <Check className="w-3 h-3 text-white" />}
-        </button>
-        
-        <div className="flex-1 min-w-0">
-          <h4 className={`font-semibold ${goal.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
-            {goal.title}
-          </h4>
-          {goal.description && (
-            <p className={`text-xs mt-1 ${goal.completed ? 'text-gray-400' : 'text-gray-600'}`}>
-              {goal.description}
-            </p>
-          )}
-          <span className="inline-block mt-2 px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 rounded-md">
-            {goal.category}
-          </span>
-        </div>
-        
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button 
             onClick={onEdit} 
-            className="p-1.5 text-purple-600 hover:bg-purple-50 rounded-lg transition-all"
+            className="p-1.5 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded"
           >
             <Edit2 className="w-3.5 h-3.5" />
           </button>
           <button 
             onClick={onDelete} 
-            className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-all"
+            className="p-1.5 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded"
           >
             <Trash2 className="w-3.5 h-3.5" />
           </button>
@@ -769,75 +703,232 @@ function GoalCard({ goal, onToggle, onEdit, onDelete }) {
   );
 }
 
-// Task Modal Component
-function TaskModal({ title, taskForm, setTaskForm, categories, onSave, onClose }) {
+
+
+// Goal Card Component - SIMPLIFIED
+function GoalCard({ goal, onToggle, onEdit, onDelete }) {
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            {title}
-          </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 p-2 rounded-lg">
-            <X className="w-6 h-6" />
-          </button>
+    <div className={`group p-3 rounded-lg border transition-all ${
+      goal.completed 
+        ? 'bg-gray-50 border-gray-200' 
+        : 'bg-white border-gray-200 hover:border-indigo-300'
+    }`}>
+      <div className="flex items-start gap-2">
+        <button
+          onClick={onToggle}
+          className={`mt-0.5 flex-shrink-0 w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${
+            goal.completed 
+              ? 'bg-indigo-600 border-indigo-600' 
+              : 'border-gray-300 hover:border-indigo-400'
+          }`}
+        >
+          {goal.completed && <Check className="w-2.5 h-2.5 text-white" />}
+        </button>
+        
+        <div className="flex-1 min-w-0">
+          <h4 className={`text-sm font-medium ${goal.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+            {goal.title}
+          </h4>
+          {goal.description && (
+            <p className="text-xs text-gray-500 mt-0.5">{goal.description}</p>
+          )}
+          <span className="inline-block mt-1.5 px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">
+            {goal.category}
+          </span>
         </div>
-        <div className="space-y-4">
-          <input
-            type="text"
-            placeholder="Task title"
-            value={taskForm.title}
-            onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
-            className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400"
-          />
-          <textarea
-            placeholder="Description (optional)"
-            value={taskForm.description}
-            onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
-            className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400 min-h-[80px]"
-          />
-          <input
-            type="date"
-            value={taskForm.date}
-            onChange={(e) => setTaskForm({ ...taskForm, date: e.target.value })}
-            className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400"
-          />
-          <select
-            value={taskForm.category}
-            onChange={(e) => setTaskForm({ ...taskForm, category: e.target.value })}
-            className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400"
+        
+        <div className="flex gap-0.5 opacity-0 group-hover:opacity-100">
+          <button 
+            onClick={onEdit} 
+            className="p-1 text-gray-600 hover:text-indigo-600"
           >
-            {categories.map(cat => (
-              <option key={cat._id} value={cat.name}>{cat.name}</option>
-            ))}
-          </select>
-          <select
-            value={taskForm.priority}
-            onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value })}
-            className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400"
+            <Edit2 className="w-3 h-3" />
+          </button>
+          <button 
+            onClick={onDelete} 
+            className="p-1 text-gray-600 hover:text-red-600"
           >
-            <option value="low">🟢 Low Priority</option>
-            <option value="medium">🟡 Medium Priority</option>
-            <option value="high">🔴 High Priority</option>
-          </select>
-          <input
-            type="text"
-            placeholder="Tags (comma-separated)"
-            value={taskForm.tags}
-            onChange={(e) => setTaskForm({ ...taskForm, tags: e.target.value })}
-            className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400"
-          />
-          <button
-            onClick={onSave}
-            className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 font-semibold shadow-lg"
-          >
-            {title.includes('Edit') ? 'Update Task' : 'Create Task'}
+            <Trash2 className="w-3 h-3" />
           </button>
         </div>
       </div>
     </div>
   );
 }
+
+
+
+// Task Modal Component - SIMPLIFIED
+function TaskModal({ title, taskForm, setTaskForm, categories, onSave, onClose }) {
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+        <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <div className="p-6 space-y-4">
+          <input
+            type="text"
+            placeholder="Task title"
+            value={taskForm.title}
+            onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+          />
+          <textarea
+            placeholder="Description (optional)"
+            value={taskForm.description}
+            onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm min-h-[80px]"
+          />
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              type="date"
+              value={taskForm.date}
+              onChange={(e) => setTaskForm({ ...taskForm, date: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+            />
+            <select
+              value={taskForm.priority}
+              onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+            >
+              <option value="low">Low Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="high">High Priority</option>
+            </select>
+          </div>
+          <select
+            value={taskForm.category}
+            onChange={(e) => setTaskForm({ ...taskForm, category: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+          >
+            {categories.map(cat => (
+              <option key={cat._id} value={cat.name}>{cat.name}</option>
+            ))}
+          </select>
+          <input
+            type="text"
+            placeholder="Tags (comma-separated)"
+            value={taskForm.tags}
+            onChange={(e) => setTaskForm({ ...taskForm, tags: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+          />
+        </div>
+        <div className="px-6 py-4 bg-gray-50 flex gap-3 rounded-b-lg">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors text-sm font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onSave}
+            className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
+          >
+            {title.includes('Edit') ? 'Update' : 'Create'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Goal Modal Component - SIMPLIFIED
+function GoalModal({ title, goalForm, setGoalForm, categories, onSave, onClose }) {
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+        <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <div className="p-6 space-y-4">
+          <input
+            type="text"
+            placeholder="Goal title"
+            value={goalForm.title}
+            onChange={(e) => setGoalForm({ ...goalForm, title: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+          />
+          <textarea
+            placeholder="Description (optional)"
+            value={goalForm.description}
+            onChange={(e) => setGoalForm({ ...goalForm, description: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm min-h-[80px]"
+          />
+          <select
+            value={goalForm.category}
+            onChange={(e) => setGoalForm({ ...goalForm, category: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+          >
+            {categories.map(cat => (
+              <option key={cat._id} value={cat.name}>{cat.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="px-6 py-4 bg-gray-50 flex gap-3 rounded-b-lg">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors text-sm font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onSave}
+            className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
+          >
+            {title.includes('Edit') ? 'Update' : 'Create'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Category Modal Component - SIMPLIFIED
+function CategoryModal({ categoryName, setCategoryName, onSave, onClose }) {
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg shadow-xl max-w-sm w-full">
+        <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900">New Category</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <div className="p-6">
+          <input
+            type="text"
+            placeholder="Category name"
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+          />
+        </div>
+        <div className="px-6 py-4 bg-gray-50 flex gap-3 rounded-b-lg">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors text-sm font-medium"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onSave}
+            className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 // Goal Modal Component
 function GoalModal({ title, goalForm, setGoalForm, categories, onSave, onClose }) {
