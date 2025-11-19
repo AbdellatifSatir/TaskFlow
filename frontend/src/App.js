@@ -607,7 +607,7 @@ function TasksView({
                     <div className="w-2 h-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"></div>
                     <span className="font-medium text-gray-700">{cat.name}</span>
                   </div>
-                  {!['Self', 'Job', 'PhD'].includes(cat.name) && (
+                  {['Self', 'Job', 'PhD'].includes(cat.name) && (
                     <button
                       onClick={() => deleteCategory(cat._id)}
                       className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 transition-all"
