@@ -443,7 +443,7 @@ function TabButton({ active, onClick, children }) {
 // Tasks View Component - SIMPLIFIED & PROFESSIONAL
 function TasksView({
   tasks, categories, nextGoals,
-  selectedCategory, setSelectedCategory, groupedTasks, updateTask,
+  selectedCategory, setSelectedCategory, groupedTasks, getWeekDateRange, updateTask,
   deleteTask, updateGoal, deleteGoal, deleteCategory,
   setShowAddTask, setShowAddGoal, setShowAddCategory,
   setEditingTask, setEditingGoal, setTaskForm, setGoalForm
