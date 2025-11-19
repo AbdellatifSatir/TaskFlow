@@ -234,6 +234,43 @@ function Dashboard() {
     return grouped;
   };
 
+
+  // ADD THIS NEW FUNCTION HERE:
+  const getWeekDateRange = (tasks) => {
+    if (!tasks || tasks.length === 0) return '';
+    
+    // Get all valid dates from tasks
+    const dates = tasks
+      .map(task => task.date ? new Date(task.date) : null)
+      .filter(date => date !== null)
+      .sort((a, b) => a - b);
+    
+    if (dates.length === 0) return '';
+    
+    // Get earliest and latest date
+    const startDate = dates[0];
+    const endDate = dates[dates.length - 1];
+    
+    // // Format dates
+    // const formatDate = (date) => {
+    //   const day = date.getDate().toString().padStart(2, '0');
+    //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    //   const year = date.getFullYear();
+    //   return `${day}/${month}/${year}`;
+    // };
+
+    // OR ALTERNATIVE FORMAT
+    const formatDate = (date) => {
+    return date.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
+};
+    
+    return `${formatDate(startDate)} to ${formatDate(endDate)}`;
+  };
+
   const groupedTasks = groupTasksByWeek();
   const completedCount = tasks.filter(t => t.completed).length;
   const totalCount = tasks.length;
@@ -480,9 +517,11 @@ function TasksView({
               <p className="text-gray-500">Start by adding your first task!</p>
             </div>
           ) : (
-            Object.entries(groupedTasks).sort(([a], [b]) => a - b).map(([week, weekTasks]) => (
+            // Object.entries(groupedTasks).sort(([a], [b]) => a - b).map(([week, weekTasks]) => (
+              Object.entries(groupedTasks).sort(([a], [b]) => b - a).map(([week, weekTasks]) => (
               <div key={week} className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-indigo-100">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2">
+                
+                {/* <div className="flex items-center gap-3 mb-6 pb-4 border-b-2">
                   <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
                     {week}
                   </div>
@@ -490,7 +529,20 @@ function TasksView({
                     <h2 className="text-xl font-bold text-gray-800">Week {week}</h2>
                     <p className="text-sm text-gray-500">{weekTasks.length} tasks</p>
                   </div>
+                </div> */}
+
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b-2">
+                  <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
+                    {week}
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-800">Week {week}</h2>
+                    <p className="text-sm text-gray-500">
+                      {getWeekDateRange(weekTasks)} • {weekTasks.length} tasks
+                    </p>
+                  </div>
                 </div>
+
                 <div className="space-y-3">
                   {weekTasks.map(task => (
                     <TaskCard
